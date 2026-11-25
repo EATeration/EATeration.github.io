@@ -2,7 +2,7 @@
 <section class="hero">
   <div>
     <h1>{{ replace site.Title " " "<br>" | safeHTML }}</h1>
-    {{ with site.Params.photo }}{{ if fileExists (printf "static/%s" .) }}<img class="me" src="{{ . | relURL }}" alt="{{ site.Title }}">{{ end }}{{ end }}
+    {{ with site.Params.photo }}{{ if fileExists (printf "static/%s" .) }}<img class="me" src="{{ . | relURL }}?v={{ now.Unix }}" alt="{{ site.Title }}">{{ end }}{{ end }}
   </div>
   <div>
     <p class="lead">{{ site.Params.tagline }}</p>
