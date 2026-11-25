@@ -1,0 +1,5 @@
+{{ define "main" }}
+<h1 class="page">Writing</h1>
+<h2><span>{{ len .Pages }} posts</span></h2>
+{{ partial "postRows.html" .Pages.ByDate.Reverse }}
+{{ end }}

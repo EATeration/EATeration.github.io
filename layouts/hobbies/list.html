@@ -1,0 +1,5 @@
+{{ define "main" }}
+<h1 class="page">Outside of school</h1>
+<h2><span>{{ len .Pages }} things</span></h2>
+{{ partial "hobbyGrid.html" .Pages.ByWeight }}
+{{ end }}

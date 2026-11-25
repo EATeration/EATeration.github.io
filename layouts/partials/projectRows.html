@@ -1,0 +1,8 @@
+{{ range $i, $p := . }}
+<a class="row" href="{{ $p.RelPermalink }}">
+  <span class="n">{{ printf "%02d" (add $i 1) }}</span>
+  <span>{{ $p.Title }}</span>
+  <span class="d">{{ $p.Summary | plainify }}</span>
+  <span class="g">{{ delimit ($p.Params.tags | default slice) ", " }}</span>
+</a>
+{{ end }}

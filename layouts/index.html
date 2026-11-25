@@ -1,45 +1,26 @@
 {{ define "main" }}
-<nav class="nav"><a href="#projects">projects</a><a href="#blog">blog</a></nav>
-<div class="top">
-  <div class="me">
-    {{ if fileExists "static/img/babyMe.jpg" }}<img class="baby" src="{{ "img/babyMe.jpg" | relURL }}" alt="">{{ end }}
-    {{ if fileExists (printf "static/%s" site.Params.photo) }}
-      <img class="pfp" src="{{ site.Params.photo | relURL }}" alt="{{ site.Title }}">
-    {{ else }}<div class="pfp"></div>{{ end }}
+<section class="hero">
+  <div>
+    <h1>{{ replace site.Title " " "<br>" | safeHTML }}</h1>
+    {{ with site.Params.photo }}{{ if fileExists (printf "static/%s" .) }}<img class="me" src="{{ . | relURL }}" alt="{{ site.Title }}">{{ end }}{{ end }}
   </div>
   <div>
-    <h1>{{ site.Title }}</h1>
-    <div class="tag">{{ site.Params.tagline }}</div>
-    <div class="links">{{ range site.Params.links }}<a href="{{ .url }}">{{ .name }}</a>{{ end }}</div>
-    {{ with site.Params.email }}<a class="wave" href="mailto:{{ . }}">{{ range $i, $ch := split . "" }}<span style="{{ printf "--i:%d" $i | safeCSS }}">{{ $ch }}</span>{{ end }}</a>{{ end }}
+    <p class="lead">{{ site.Params.tagline }}</p>
+    <div class="lab">{{ site.Params.skillsTitle }}</div>
+    <ul class="skills">{{ range site.Params.skills }}<li>{{ . }}</li>{{ end }}</ul>
+    <div class="links">{{ range site.Params.links }}<a href="{{ .url }}">{{ .name }}</a>{{ end }}<a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></div>
   </div>
-</div>
+</section>
 
-{{ $photos := slice }}
-{{ range (readDir "static/img/photography") }}{{ if not (hasPrefix .Name ".") }}{{ $photos = $photos | append .Name }}{{ end }}{{ end }}
-<div class="photos">
-{{ range $i, $c := slice "#ffe3a3" "#ffc2c2" "#d9d1ff" }}
-  {{ with index $photos $i }}<a href="{{ "photography/" | relURL }}"><img src="{{ printf "img/photography/%s" . | relURL }}" alt=""></a>
-  {{ else }}<div style="background: {{ $c | safeCSS }}"></div>{{ end }}
-{{ end }}
-</div>
-<a class="more" href="{{ "photography/" | relURL }}">photography →</a>
+{{ $projects := (where site.RegularPages "Section" "projects").ByWeight }}
+<h2><span>Projects</span>{{ if gt (len $projects) site.Params.homeProjects }}<a href="{{ "projects/" | relURL }}">all {{ len $projects }} →</a>{{ end }}</h2>
+{{ partial "projectRows.html" (first site.Params.homeProjects $projects) }}
 
-<h2 id="projects">Projects</h2>
-{{ range site.Data.projects }}
-<div class="item">
-  {{ if and .image (fileExists (printf "static/%s" .image)) }}<img class="thumb" src="{{ .image | relURL }}" alt="">
-  {{ else }}<div class="thumb" style="background: {{ .color | safeCSS }}"></div>{{ end }}
-  <div>
-    <b>{{ .title }}</b>
-    <div class="meta">{{ .desc }}</div>
-    {{ range .links }}<a class="btn" href="{{ .url }}">{{ .name }}</a>{{ end }}
-  </div>
-</div>
-{{ end }}
+{{ $posts := (where site.RegularPages "Section" "posts").ByDate.Reverse }}
+<h2><span>Writing</span>{{ if gt (len $posts) site.Params.homePosts }}<a href="{{ "posts/" | relURL }}">all {{ len $posts }} →</a>{{ end }}</h2>
+{{ partial "postRows.html" (first site.Params.homePosts $posts) }}
 
-<h2 id="blog">Blog</h2>
-{{ range (where site.RegularPages "Section" "posts").ByDate.Reverse }}
-  <a class="post" href="{{ .RelPermalink }}">{{ .Title }}<span>{{ .Date.Format "Jan 2006" }}</span></a>
-{{ end }}
+{{ $hob := (where site.RegularPages "Section" "hobbies").ByWeight }}
+<h2><span>Outside of school</span><a href="{{ "hobbies/" | relURL }}">more →</a></h2>
+{{ partial "hobbyGrid.html" $hob }}
 {{ end }}

@@ -1,0 +1,9 @@
+<div class="hob">
+{{ range . }}
+  {{ $src := partial "hobbyImg.html" . }}
+  <a href="{{ .RelPermalink }}">
+    {{ if $src }}<img src="{{ $src | safeURL }}" alt="{{ .Title }}" loading="lazy">{{ else }}<div class="ph"></div>{{ end }}
+    <span>{{ .Title }}</span>
+  </a>
+{{ end }}
+</div>

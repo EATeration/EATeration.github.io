@@ -1,0 +1,7 @@
+{{ range $i, $p := . }}
+<a class="row post" href="{{ $p.RelPermalink }}">
+  <span class="n">{{ printf "%02d" (add $i 1) }}</span>
+  <span>{{ $p.Title }}</span>
+  <span class="g">{{ $p.Date.Format "2006-01-02" }}</span>
+</a>
+{{ end }}

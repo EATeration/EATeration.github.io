@@ -2,10 +2,21 @@
 <html lang="{{ site.LanguageCode }}">
 <head>{{ partial "head.html" . }}</head>
 <body class="{{ .Section }}">
-  <div class="stripe"></div>
-  <div class="wrap">
-    {{ block "main" . }}{{ end }}
-    <footer>powered by <a href="https://gohugo.io">hugo</a> · {{ now.Year }}</footer>
-  </div>
+<div class="w">
+  <nav class="top">
+    <a href="{{ "/" | relURL }}">{{ site.Title }}</a>
+    <span>
+      <a href="{{ "projects/" | relURL }}">projects</a>
+      <a href="{{ "posts/" | relURL }}">writing</a>
+      <a href="{{ "hobbies/" | relURL }}">hobbies</a>
+      <button class="theme" onclick="toggleTheme()" aria-label="dark / light">
+        <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg>
+      </button>
+    </span>
+  </nav>
+  {{ block "main" . }}{{ end }}
+  <footer>powered by <a href="https://gohugo.io">hugo</a></footer>
+</div>
+<script>function toggleTheme(){var t=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}}</script>
 </body>
 </html>

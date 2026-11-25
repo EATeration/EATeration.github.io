@@ -1,0 +1,6 @@
+{{- $local := printf "img/hobbies/%s.jpg" .File.ContentBaseName -}}
+{{- $src := "" -}}
+{{- if .Params.image -}}
+  {{- if hasPrefix .Params.image "http" -}}{{- $src = .Params.image -}}{{- else -}}{{- $src = .Params.image | relURL -}}{{- end -}}
+{{- else if fileExists (printf "static/%s" $local) -}}{{- $src = $local | relURL -}}{{- end -}}
+{{- return $src -}}

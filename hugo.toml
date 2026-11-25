@@ -3,12 +3,19 @@ languageCode = "en-us"
 title = "Ermias Alem Tadesse"
 
 [params]
-  tagline = "I like physics, math & education."
-  # square photo at static/img/me.jpg shows up in the circle
+  tagline = "Interested in developing mathematical & computational methods to solve problems in science."
   photo = "img/me.jpg"
-  # written in handwriting under your name, like a signature
   email = "ermias.a.tadesse@gmail.com"
-
+  homeProjects = 7   # how many projects show on the home page
+  homePosts = 5      # how many posts show on the home page
+  skillsTitle = "Skills"
+  skills = [
+    "Proficient in Java, C++, Python & Verilog HDL",
+    "Experienced in JavaScript & Assembly",
+    "Well versed in abstract mathematics & proof writing",
+    "Skilled at fixing computer hardware & software issues",
+    "Teachable: quick to learn & to act on feedback",
+  ]
   [[params.links]]
     name = "github"
     url = "https://github.com/EATeration"
@@ -22,11 +29,10 @@ title = "Ermias Alem Tadesse"
     name = "twitter"
     url = "https://x.com/EATeration0"
 
+[markup.goldmark.renderer]
+  unsafe = true
 [markup.goldmark.extensions.passthrough]
   enable = true
   [markup.goldmark.extensions.passthrough.delimiters]
     block = [["$$", "$$"]]
     inline = [["$", "$"]]
-
-[markup.goldmark.renderer]
-  unsafe = true
