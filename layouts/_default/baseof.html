@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="{{ site.LanguageCode }}">
+<head>{{ partial "head.html" . }}</head>
+<body class="{{ .Section }}">
+  <div class="stripe"></div>
+  <div class="wrap">
+    {{ block "main" . }}{{ end }}
+    <footer>powered by <a href="https://gohugo.io">hugo</a> · {{ now.Year }}</footer>
+  </div>
+</body>
+</html>

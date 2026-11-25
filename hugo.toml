@@ -1,0 +1,32 @@
+baseURL = "https://eateration.github.io/"
+languageCode = "en-us"
+title = "Ermias Alem Tadesse"
+
+[params]
+  tagline = "I like physics, math & education."
+  # square photo at static/img/me.jpg shows up in the circle
+  photo = "img/me.jpg"
+  # written in handwriting under your name, like a signature
+  email = "ermias.a.tadesse@gmail.com"
+
+  [[params.links]]
+    name = "github"
+    url = "https://github.com/EATeration"
+  [[params.links]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/ermias-alem-tadesse-838921249"
+  [[params.links]]
+    name = "medium"
+    url = "https://medium.com/@ermiastadesse"
+  [[params.links]]
+    name = "twitter"
+    url = "https://x.com/EATeration0"
+
+[markup.goldmark.extensions.passthrough]
+  enable = true
+  [markup.goldmark.extensions.passthrough.delimiters]
+    block = [["$$", "$$"]]
+    inline = [["$", "$"]]
+
+[markup.goldmark.renderer]
+  unsafe = true

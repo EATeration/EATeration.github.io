@@ -1,0 +1,16 @@
+{{ define "main" }}
+<a class="back" href="{{ "/" | relURL }}">← {{ site.Title }}</a>
+<h1 class="gtitle">Photography</h1>
+<div class="gallery">
+{{ range (readDir "static/img/photography") }}
+  {{ if not (hasPrefix .Name ".") }}
+  <img src="{{ printf "img/photography/%s" .Name | relURL }}" alt="" loading="lazy" onclick="openShot(this.src)">
+  {{ end }}
+{{ end }}
+</div>
+<div id="lightbox" onclick="this.classList.remove('on')"><img id="lbimg" alt=""></div>
+<script>
+function openShot(src){document.getElementById('lbimg').src=src;document.getElementById('lightbox').classList.add('on');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('lightbox').classList.remove('on');});
+</script>
+{{ end }}
