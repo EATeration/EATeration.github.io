@@ -1,14 +1,15 @@
 {{ define "main" }}
 <section class="hero">
   <div>
-    <h1>{{ replace site.Title " " "<br>" | safeHTML }}</h1>
+    <h1>{{ range split site.Title " " }}<span>{{ . }}</span> {{ end }}</h1>
     {{ with site.Params.photo }}{{ if fileExists (printf "static/%s" .) }}<img class="me" src="{{ . | relURL }}?v={{ now.Unix }}" alt="{{ site.Title }}">{{ end }}{{ end }}
   </div>
   <div>
     <p class="lead">{{ site.Params.tagline }}</p>
     <div class="lab">{{ site.Params.skillsTitle }}</div>
     <ul class="skills">{{ range site.Params.skills }}<li>{{ . }}</li>{{ end }}</ul>
-    <div class="links">{{ range site.Params.links }}<a href="{{ .url }}">{{ .name }}</a>{{ end }}<a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></div>
+    <div class="links">{{ range site.Params.links }}<a href="{{ .url }}" aria-label="{{ .name }}" title="{{ .name }}">{{ partial "socialIcon.html" .name }}</a>{{ end }}</div>
+    {{ with site.Params.email }}<a class="wave" href="mailto:{{ . }}">{{ range $i, $c := split . "" }}<span style="{{ printf "--i:%d" $i | safeCSS }}">{{ $c }}</span>{{ end }}</a>{{ end }}
   </div>
 </section>
 
